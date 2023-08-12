@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const EventInfo = styled.p`
 margin: 5px;
 display: flex;
-align-items: center
+align-items: center;
 `;
 
 const EventName = styled.h5`
