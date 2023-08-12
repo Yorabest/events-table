@@ -1,16 +1,24 @@
+import { GlobalStyle } from 'globalStyles';
+import {ThemeProvider} from 'styled-components';
+
+import {colors} from '../themes';
+import events from '../data.json';
+import { Container } from "./Container/Container";
+import { EventList } from "./EventList/EventList";
+
+const theme = {
+  colors: colors
+}
+
 export const App = () => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+    <>
+    <ThemeProvider theme={theme}>
+    <GlobalStyle/>
+      <Container>
+        <EventList events={events}/>
+      </Container>
+      </ThemeProvider>
+    </>
   );
 };
