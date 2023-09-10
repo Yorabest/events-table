@@ -5,6 +5,8 @@ import {colors} from '../themes';
 import events from '../data.json';
 import { Container } from "./Container/Container";
 import { EventList } from "./EventList/EventList";
+import contactsInfo from '../contactsInfo.json'
+import { Phonebook } from './Phonebook/Phonebook';
 
 const theme = {
   colors: colors
@@ -15,9 +17,7 @@ export const App = () => {
     <>
     <ThemeProvider theme={theme}>
     <GlobalStyle/>
-      <Container>
-        <EventList events={events}/>
-      </Container>
+      <Phonebook contactsInfo={contactsInfo}/>
       </ThemeProvider>
     </>
   );
