@@ -4,6 +4,7 @@ import { AddContact } from 'components/AddContact/AddContact'
 import { Container } from "components/Container/Container";
 import { nanoid } from "nanoid";
 import { FilterContacts } from "components/FilterContacts/FilterContacts";
+import {Main} from './Phonebook.styled'
 
 
 
@@ -58,16 +59,18 @@ export class Phonebook extends Component{
     }
 
     render() {
-        return <>
+        const { addNewContact, addFilter, filterCon, deleteContact } = this;
+        const {filter, contacts} = this.state
+        return <Main>
             <Container title='Phonebook'>
-                <AddContact addNewContact={this.addNewContact} contacts={this.state.contacts} />
+                <AddContact addNewContact={addNewContact} contacts={contacts} />
             </Container>
             <Container title='Contacts'>
-                <FilterContacts addFilter={this.addFilter } />
+                <FilterContacts addFilter={addFilter } />
 
-                <ContactsList contacts={this.filterCon(this.state.filter)} handlerDelete={this.deleteContact} />
+                <ContactsList contacts={filterCon(filter)} handlerDelete={deleteContact} />
             </Container>
-        </>
+        </Main>
     }
 
     

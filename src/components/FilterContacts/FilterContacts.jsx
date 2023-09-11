@@ -1,4 +1,5 @@
 import { Component } from "react";
+import {Input} from './FilterContacts.styled'
 
 export class FilterContacts extends Component{
     state = {
@@ -18,7 +19,7 @@ export class FilterContacts extends Component{
     render() {
         return <>
             <label htmlFor="find">Find contacts by name</label>
-            <input
+            <Input
                 id="find"
                 type="text"
                 value={this.state.filter}

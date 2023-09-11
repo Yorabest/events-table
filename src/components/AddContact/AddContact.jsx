@@ -1,4 +1,5 @@
 import { Component } from "react";
+import {Form, Button, Input} from './AddContact.styled.jsx'
 
 export class AddContact extends Component{
     state = {
@@ -19,6 +20,7 @@ export class AddContact extends Component{
 
     handlerSubmit = (e) => {
         e.preventDefault()
+        
         if (!this.state.name || !this.state.number) {
             return
         }
@@ -46,9 +48,9 @@ export class AddContact extends Component{
         const { handlerSubmit, handlerInputChange } = this;
         const {name, number} = this.state
         return <>
-            <form onSubmit={handlerSubmit}>
+            <Form onSubmit={handlerSubmit}>
                 <label htmlFor="name">Name</label>
-                <input
+                <Input
                     id="name"
                     type="text"
                     name="name"
@@ -60,7 +62,7 @@ export class AddContact extends Component{
                 />
                 <label htmlFor="tel">Number</label>
 
-                <input
+                <Input
                     id="tel"
                     type="tel"
                     name="number"
@@ -70,7 +72,7 @@ export class AddContact extends Component{
                     title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                     required
 />
-                <button type="submit">Add contact</button>
-            </form></>
+                <Button type="submit">Add contact</Button>
+            </Form></>
     }
 }
