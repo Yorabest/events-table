@@ -37,10 +37,10 @@ export const App = () => {
     <>
     <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <ColorPicker options={colorPickerOptions} />
+        {/* <ColorPicker options={colorPickerOptions} />
         {currentSticker && <h1>{currentSticker}</h1>}
-        <StickersList stickers={stickers} onStickerClick={handleCurrentSticker}/>
-      {/* <Phonebook contactsInfo={contactsInfo}/> */}
+        <StickersList stickers={stickers} onStickerClick={handleCurrentSticker}/> */}
+      <Phonebook contactsInfo={contactsInfo}/>
       </ThemeProvider>
     </>
   );
