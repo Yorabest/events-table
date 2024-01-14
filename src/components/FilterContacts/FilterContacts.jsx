@@ -1,12 +1,17 @@
-import { Component, useState } from "react";
-import {Input} from './FilterContacts.styled'
+import { Input } from './FilterContacts.styled'
+import { filter } from "../../redux/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { changeFilter } from "../../redux/slices";
 
-export const FilterContacts = ({addFilter}) => {
-    const [filter, setFilter] = useState('')
+export const FilterContacts = () => {
+    // const [filter, setFilter] = useState('')
+    const currentFilter = useSelector(filter)
+    const dispatch = useDispatch()
 
-  const handlerInputChange = (e) => {
-        setFilter(e.currentTarget.value)
-        addFilter(e.currentTarget.value)
+    const handlerInputChange = (e) => {
+      dispatch(changeFilter(e.currentTarget.value))
+        // setFilter(e.currentTarget.value)
+        // addFilter(e.currentTarget.value)
     }
 
      return <>
@@ -14,35 +19,7 @@ export const FilterContacts = ({addFilter}) => {
             <Input
                 id="find"
                 type="text"
-                value={filter}
-                onChange={handlerInputChange}
+                value={currentFilter}
+                onChange={(e)=>handlerInputChange(e)}
             /></>
-}
-
-export class OldFilterContacts extends Component{
-    state = {
-        filter: ''
-    }
-
-    handlerInputChange = (e) => {
-        this.setState({
-            filter: e.currentTarget.value
-        })
-
-        this.props.addFilter(e.currentTarget.value)
-
-
-    }
-
-    render() {
-        return <>
-            <label htmlFor="find">Find contacts by name</label>
-            <Input
-                id="find"
-                type="text"
-                value={this.state.filter}
-                onChange={this.handlerInputChange}
-            /></>
-    }
-
 }
