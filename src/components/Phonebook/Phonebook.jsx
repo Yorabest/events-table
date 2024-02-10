@@ -3,47 +3,27 @@ import { AddContact } from 'components/AddContact/AddContact'
 import { Container } from "components/Container/Container";
 import { FilterContacts } from "components/FilterContacts/FilterContacts";
 import { Main } from './Phonebook.styled'
-import { filter, phone } from "../../redux/selectors";
-import { useSelector } from "react-redux";
+import { selectFilteredContacts } from "../../redux/selectors";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchContacts } from "../../redux/operations";
 
 export const Phonebook = () => {
-    // const [contacts, setContacts] = useState(contactsInfo)
-    // const [filter, setFilter] = useState('')
-    const currentFilter = useSelector(filter)
-    const contacts = useSelector(phone)
+    // const currentFilter = useSelector(selectFilter)
+    const contacts = useSelector(selectFilteredContacts)
 
-    // const deleteContact = (currentId) => {
-    //    const update =  contacts.filter(({ id }) => {
-    //         const res = id === currentId
-    //         return !res
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchContacts)
+    },[dispatch])
+    // const filterCon = () => {
+        
+    //    const res = contacts.filter(({name}) => {
+    //         return name.toLowerCase().indexOf(currentFilter.toLowerCase()) > -1
     //    })
-        
-    //     setContacts(update)
-
+    //     return res
     // }
-
-    // const addNewContact = (name, number) => {
-    //     const newContact = {
-    //         id: nanoid(),
-    //         name,
-    //         number
-    //     }
-
-    //     setContacts(prev => [newContact, ...prev])
-    // }
-
-    // const addFilter = (filter) => {
-    //     setFilter(filter)
-
-    // }
-
-    const filterCon = () => {
-        
-       const res = contacts.filter(({name}) => {
-            return name.toLowerCase().indexOf(currentFilter.toLowerCase()) > -1
-       })
-        return res
-    }
 
     return <Main>
             <Container title='Phonebook'>
@@ -52,7 +32,7 @@ export const Phonebook = () => {
             <Container title='Contacts'>
                 <FilterContacts/>
 
-                <ContactsList contacts={filterCon()}  />
+                <ContactsList contacts={contacts}  />
             </Container>
         </Main>
 }

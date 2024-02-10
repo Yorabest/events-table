@@ -1,21 +1,45 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
+import { fetchContacts, addNewContact, deleteContact } from "./operations";
 
 const phoneSlice = createSlice({
     name: 'phone',
-    initialState: [
-  { "id": "id-1", "name": "Diluc Ragnvindr", "number": "+380639811184" },
-  { "id": "id-2", "name": "Kaeya Alberich", "number": "+380992214500" },
-  { "id": "id-3", "name": "Jean Gunnhildr", "number": "+380960403962" }
-    ],
-    reducers: {
-        addNewContact(state, action) {
-            state.push(action.payload)
-        },
-        deleteContact(state, action) {
-            return state.filter((contact) => {
-        return contact.id !== action.payload
+    initialState:  {
+    items: [],
+    isLoading: false,
+    error: null
+  },
+    // reducers: {
+    //     addNewContact(state, action) {
+    //         state.push(action.payload)
+    //     },
+    //     deleteContact(state, action) {
+    //         return state.filter((contact) => {
+    //     return contact.id !== action.payload
+    //   })
+    //     }
+    // }
+    extraReducers(builder) {
+        builder
+        .addCase(fetchContacts.fulfilled, (state, action) => {
+        state.items = action.payload;
+        })
+        .addCase(addNewContact.fulfilled, (state, action) => {
+        state.items.push(action.payload);
+        })
+        .addCase(deleteContact.fulfilled, (state, action) => {
+         const idx = state.items.findIndex((task) => task.id === action.payload);
+        state.items.splice(idx, 1)
+        })
+          .addMatcher(isAnyOf(fetchContacts.pending, addNewContact.pending, deleteContact.pending), (state) => {
+        state.isLoading = true;
       })
-        }
+    .addMatcher(isAnyOf(fetchContacts.rejected ,addNewContact.rejected ,deleteContact.rejected),(state, action) => {
+        state.error = action.payload
+    })
+    .addMatcher(isAnyOf(fetchContacts.fulfilled, addNewContact.fulfilled, deleteContact.fulfilled),(state) => {
+        state.isLoading = false;
+        state.error = null;
+      })
     }
 })
 
@@ -32,5 +56,5 @@ const filterSlise = createSlice({
 export const phoneReducer = phoneSlice.reducer;
 export const filterReducer = filterSlise.reducer;
 
-export const { addNewContact, deleteContact } = phoneSlice.actions;
+// export const { addNewContact, deleteContact } = phoneSlice.actions;
 export const { changeFilter } = filterSlise.actions;
