@@ -15,7 +15,7 @@ export const Phonebook = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(fetchContacts)
+        dispatch(fetchContacts())
     },[dispatch])
     // const filterCon = () => {
         
